@@ -1,0 +1,30 @@
+pipeline {
+  agent none
+  stages {
+	stage("Checkout") {
+      steps {
+        sh 'git clone https://github.com/gvsiva2008/Jenkins.git'
+	    sh 'cd Maven-simple'
+      }
+    }
+	stage("build ") {
+      steps {     
+        sh 'mvn clean install'
+      }
+    }
+    stage("Build Image") {
+      steps {     
+        sh 'docker build -t gvsiva2008/gumukart:1 .'
+      }
+    }
+    stage("pushtoHub") {
+      steps {     
+        withCredentials([usernamePassword(credentialsID:'dockerhub', passwordVarible:'passwrod', usernameVarible: 'username')])
+		  {
+		   sh ' docker login -u ${env.username} -p ${env.password}'
+           sh 'docker push gvsiva2008/gumukart'
+        } 
+	  }
+    }
+  }
+}
