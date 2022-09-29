@@ -14,15 +14,15 @@ pipeline {
     }
     stage("Build Image") {
       steps {     
-        sh 'sudo docker build -t gvsiva2008/gumukart:1 .'
+        sh 'docker build -t gvsiva2008/gumukart:1 .'
       }
     }
     stage("pushtoHub") {
       steps {     
         withCredentials([usernamePassword(credentialsID:'dockerhub', passwordVarible:'passwrod', usernameVarible: 'username')])
 		  {
-		   sh 'sudo docker login -u ${env.username} -p ${env.password}'
-           sh 'sudo docker push gvsiva2008/gumukart'
+		   sh 'docker login -u ${env.username} -p ${env.password}'
+           sh 'docker push gvsiva2008/gumukart'
         } 
 	  }
     }
