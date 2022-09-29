@@ -6,7 +6,7 @@ WORKDIR /var/tomcat
 ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.67/bin/apache-tomcat-9.0.67.tar.gz .
 RUN tar -xvzf apache-tomcat-9.0.67.tar.gz
 RUN mv apache-tomcat-9.0.67/* /var/tomcat
-COPY /home/ubuntu/K8s_gamukart/target/cangk-1.1-RELEASE.war /var/tomcat/webapps
+COPY /var/lib/jenkins/workspace/Pipeline_1/target/cangk-1.1-RELEASE.war /var/tomcat/webapps
 EXPOSE 8080
 CMD ["/var/tomcat/bin/catalina.sh", "run"]
 
