@@ -6,7 +6,6 @@ pipeline {
         sh 'git clonehttps://github.com/gvsiva2008/K8s_gamukart.git '
 	    sh 'K8s_gamukart'
       }
-    }
 	stage("build ") {
       steps {     
         sh 'mvn clean install'
