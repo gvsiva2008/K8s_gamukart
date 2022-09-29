@@ -14,6 +14,7 @@ pipeline {
     }
     stage("Build Image") {
       steps {     
+	sh 'sudo chmod 666 /var/run/docker.sock'      
         sh 'docker build -t gvsiva2008/gumukart:1 .'
       }
     }
