@@ -19,19 +19,14 @@ pipeline {
       }
     }
     stage("pushtoHub") { 
-        environment {
-               registryCredential = 'dockerhub'
-           }
         steps{
            withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
              sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
              sh 'docker push gvsiva2008/gumukart:latest'
+           }
         }
-        }
-      }
-	  }
-    }
-	stage("Deploying App to Kubernetes") {
+     }
+     stage("Deploying App to Kubernetes") {
       steps {
         script {
           kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "k8s")
