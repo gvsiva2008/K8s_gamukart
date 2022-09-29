@@ -15,16 +15,20 @@ pipeline {
     stage("Build Image") {
       steps {     
 	sh 'whoami'      
-        sh 'docker build -t gvsiva2008/gumukart:1 .'
+        sh 'docker build -t gvsiva2008/gumukart .'
       }
     }
-    stage("pushtoHub") {
-      steps {     
-        withCredentials([usernamePassword(credentialsID:'dockerhub', passwordVarible:'passwrod', usernameVarible: 'username')])
-		  {
-		   sh 'docker login -u ${env.username} -p ${env.password}'
-           sh 'docker push gvsiva2008/gumukart'
-        } 
+    stage("pushtoHub") { 
+        environment {
+               registryCredential = 'dockerhub'
+           }
+        steps{
+        script {
+          docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+            dockerImage.push("gvsiva2008/gumukart:latest")
+          }
+        }
+      }
 	  }
     }
 	stage("Deploying App to Kubernetes") {
