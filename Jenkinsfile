@@ -15,21 +15,21 @@ pipeline {
     stage("Build Image") {
       steps {     
 	sh 'whoami'      
-        sh 'docker build -t gvsiva2008/gumukart .'
+        sh 'docker build -t gvsiva2008/gamukart .'
       }
     }
     stage("pushtoHub") { 
         steps{
            withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
              sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-             sh 'docker push gvsiva2008/gumukart:latest'
+             sh 'docker push gvsiva2008/gamukart:latest'
            }
         }
      }
      stage("Deploying App to Kubernetes") {
       steps {
         script {
-          kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "k8s")
+          kubernetesDeploy(configs: "deployment.yaml", kubeconfigId: "k8s")
         }
       }
     }
