@@ -4,7 +4,7 @@ pipeline {
 	stage("Checkout") {
       steps {
         sh 'git clone https://github.com/gvsiva2008/K8s_gamukart.git '
-	    sh 'K8s_gamukart'
+	    sh 'cd K8s_gamukart'
       }
 	}
 	stage("build ") {
