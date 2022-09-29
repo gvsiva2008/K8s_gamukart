@@ -3,7 +3,7 @@ pipeline {
   stages {
 	stage("Checkout") {
       steps {
-        sh 'git clonehttps://github.com/gvsiva2008/K8s_gamukart.git '
+        sh 'git clone https://github.com/gvsiva2008/K8s_gamukart.git '
 	    sh 'K8s_gamukart'
       }
 	}
