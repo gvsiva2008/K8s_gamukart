@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: gamukart
-        image: gvsiva2008/gamukart:latest
+        image: gvsiva2008/gamukart:v.1
         ports:
         - containerPort: 80
