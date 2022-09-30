@@ -15,14 +15,14 @@ pipeline {
     stage("Build Image") {
       steps {     
 	sh 'whoami'      
-        sh 'docker build -t gvsiva2008/gamukart .'
+        sh 'docker build -t gvsiva2008/gamukart:v.1 .'
       }
     }
     stage("pushtoHub") { 
         steps{
            withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
              sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-             sh 'docker push gvsiva2008/gamukart:latest'
+             sh 'docker push gvsiva2008/gamukart:v.1'
            }
         }
      }
